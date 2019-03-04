@@ -6,9 +6,12 @@
 {% block content %}
 
 <!-- Blog Category -->
-<h3>Write a Blog Post</h3>
-{{ wtf.quick_form(form) }}
-
+<div class="jumbotron" style="background-color:brown,">
+  <h3 style="color:rgb(15, 164, 214); text-align: center; ">
+    Write a Blog Post
+  </h3>
+  {{ wtf.quick_form(form) }}
+</div>
 {% for post in post %}
 
 <div class="col-md-8 offset-md-2" style="margin-left:15%;" id="blog_page">
