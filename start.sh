@@ -1,5 +1,5 @@
-export MOVIE_API_KEY=ad4794bf357e7cd909a0db52b44e556f
-export SECRET_KEY=thandefrancis
-export DATABASE_PASS=master
+export SECRET_KEY=12345
+export MAIL_USERNAME='carizeree@gmail.com'
+export MAIL_PASSWORD='limousine'
 
 python3.6 manage.py server

@@ -1,60 +1,30 @@
-## Blog
-## Blog is a web application that allows users / writers to view and comment on blogs posted.
-### 15 February 2019
-#### By **[Francis T Karagu]**
+# Blog
+This application allows writers to create Blog Posts while the users of the application can comment on the posts created.
+
+## Developed By
+Samuel Oluoch Mukoya
 
 ## Description
-Blog is a web application that provides a platform for the user to comment on blogs posted and allows writers the opportunity to create blogs.
+In the app, a writer is required to register before creating a Blog Post. After registration, the writers can create blogs as per the categories that are in the app. Users do not need to sign up before using the app. They can read blog posts and comment on the posts without registering on the app. Once the users comment on any blog post, the writer who wrote the post can delete the comments made by the users if they find them inappropriate. Additionally, writers can also delete the blog posts that they do not wish to remain in the app.
 
-## Specifications
-### Who is the target User?
-* Anyone who wants to review, share , comment and advice the public.
+## Setup/Installation Requirements
+1. Load the app on any web browser such as Chrome, Mozilla, or Internet Explorer.
+2. For writers, Sign up or login to the app to create a Blo Post
+3. For users, just click on any Blog Post to comment after reading it.
+4. For writers, just click on Delete when on the Posts page to delete the respective post. To delete a comment, navigate to the comments section of the individual post and click on Delete button to delete an individual comment.
+5. To edit the code, just clone the whole folder and open the files using any text editors
 
-### Front-end/User Interface Logic Objectives
-* By default the page will load and provide two options and a sign up option.
-* Post a Blog: This section will be used by writers who want to post a blog. You will be required to login to access this section.
-* Read a Blog: This section will be used by users who want to comment on blogs.
-* Sign In: This is the section to be used for signing in or creating new members.
+## Known Bugs
+There are currently no known bugs for the app. However, I will be updating the README incase any bugs arise.
 
-### Back-end/Business logic Objectives
-* The application is using a postgres database to store data.
-* Once a user is created he / she can sign in and post or comment on available posts.
-
-### Behaviour-Driven Development
-| Behavior            | Input                         | Output                        |
-| ------------------- | ----------------------------- | ----------------------------- |
-| View Home | Click on the Blog | Loads the home page. |
-| View Post a Blog | Click on Post a Blog | Validation helps to check if you are logged in. If yes page load else you are routed to sign in page.|
-| View Read a Blog | Click on Read a Blog | No validation required. All blogs are loaded and random quotes are displayed.|
-
-## Prerequiites
-    - Python 3.6 required
-
-## Application link
-Here is a live working link https://thashblog.herokuapp.com
-
-## Set-up and Installation
-    - Install python 3.6
-    - Run chmod a+x start.py
-    - Run ./start.py
-
-    Incase you need to access / improve the application please follow the below steps
-    1.  Use this command $ git clone <https://github.com/Fkaragu/Blog>
-        This will clone the projects repository into a local folder on your device.
-    2.  Open the files with an editor( preferably Atom. )
-    3.  Study the code. learn from it. Improve on it.
-
-## Known bugs
-No known errors.
-
-## Technologies used
-    - Python 3.6
-    - HTML
-    - Bootstrap
+## Technologies Used
+1. Python 3.6 was used to write the logic.
+2. Ubuntu terminal was used to test the codes and run them.
+3. Virtual studio text editor was used during the writing of the codes.
+4. Flask framework was used to structure the app.
+5. Postgres was used in the creation of the database
 
 ## Support and contact details
-In case of any problems reach me through my email:fkaragu@gmail.com
-
-### License
-Copyright (c) {2019} **{Francis Thande Karagu}**
-Permission is hereby granted, free of charge, to any person willing to obtain a copy of this program for personal use. However if the program will be used for commercial gain then a royalty fee will have to be paid to the author of the program.
+In case you need any assistance with the codes, or you have any comments you would like to share, please feel free to email me anytime through info@blog.com 
+## License 
+This application uses the MIT licence. Any codes used from the app is allowed as long as the product of the usage will be open-source Copyright (c) 2018 Samuel Oluoch Mukoya

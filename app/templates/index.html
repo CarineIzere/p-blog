@@ -1,35 +1,48 @@
-{% extends 'base.html'%}
-{% import 'macros.html' as macro%}
-
-
-<!-- Styles block -->
-
-{% block styles%}
-{{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-{% endblock %}
-
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+<!--Styles block-->
 
 <!-- Content block -->
+
 {% block content %}
 
-<div class="bgimg-1">
-    <div class="caption">
-      <span class="">Welcome to My blog</span><br>
-      <span class="border">Francis T Karagu</span>
+<!-- Blog Category -->
+<h3> Write a Blog Post </h3>
+{{wtf.quick_form(form)}}
+
+{% for post in post %}
+
+<div class="col-md-8 offset-md-2" style="margin-left:15%;" id="blog_page">
+
+
+<div class="panel panel-default" style="background-color:rgb(15, 164, 214)">
+    <div class="table-container">
+        <table class="table table-filter">
+            <tbody>
+                <tr data-status="pagado">
+                    <td>
+                        <div class="media">
+                            <div class="jumbotron" >
+                            <div class="media-body">
+                                <span class="media-meta pull-right">{{ post.timestamp }}</span>
+                                <h4 class="title">{{ post.actual_post }}...
+                                </h4>
+                                <a class="btn btn-success text-center" href="/post/comments/new/{{post.id}}">Comment on this Post</a> 
+                                
+                                <a class="btn btn-danger" href="/delete/{{post.id}}">Delete</a>
+                             
+                            </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
     </div>
 </div>
-
-<div class="blog-summary">
-  <h3>The Blog</h3>
-  <p>This platform provides both the user and the writer with the opportunity to freely
-  express themselves without the fear of being judged.</p>
 </div>
 
-<div class="bgimg-1">
-    <div class="caption">
-      <span class="border">THE BLOG</span>
-    </div>
-  </div>
+{% endfor %}
 
 {% endblock%}

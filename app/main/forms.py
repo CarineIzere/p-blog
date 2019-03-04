@@ -1,17 +1,22 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField
-from wtforms.validators import Required,Email
+from wtforms import StringField,TextAreaField,SubmitField,SelectField
+from ..models import User
+from wtforms import ValidationError
+from wtforms.validators import Required, Email, EqualTo
 
-
-class CommentForm(FlaskForm):
-    comment = TextAreaField('Comment', validators=[Required()])
-    submit = SubmitField('Post Comment')
-
-class BlogFormI(FlaskForm):
-    title = StringField('Blog Title',validators=[Required()])
-    pitch = TextAreaField('Blog Content:', validators=[Required()], render_kw={'class': 'form-control', 'rows': 15})
+class PostForm(FlaskForm): #create a class that inherits from FlaskForm class
+    category = SelectField('Choose Blog Category', choices =[('General','General'),('Cars','Cars'),('Technology','Technology')],validators=[Required()])
+    post = TextAreaField('Type Blog Post Below:', validators=[Required()])
     submit = SubmitField('Submit')
 
-class EmailFormI(FlaskForm):
-    email = StringField('Enter your email', validators=[Required(), Email()])
-    subscribe = SubmitField('Subscribe')
+
+
+class CommentsForm(FlaskForm):
+    comments = TextAreaField('Comment on the Post', validators=[Required()])
+    submit = SubmitField('Submit')
+
+class ContentForm(FlaskForm):
+    content = TextAreaField('YOUR POST')
+    submit = SubmitField('SUBMIT')
+
+

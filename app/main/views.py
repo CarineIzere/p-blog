@@ -1,70 +1,114 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template, request, redirect, url_for, abort, flash
 from . import main
-from datetime import datetime
-from time import time, sleep
-from .forms import BlogFormI, CommentForm, EmailFormI
-from ..models import User, BLOG, Comment, Subscribe
 from flask_login import login_required, current_user
-from ..email import mail_message
-import requests
-import json
-
-# Views
-@main.route('/')
+from .. import db
+from ..models import User,Post,Comment
+from app import login_manager
+from .forms import PostForm,CommentsForm
+@main.route('/',methods=['GET','POST'])
 def index():
     '''
-    View root page function that returns the index page and its data
+    View page function that creates and returns the post titles on the index page
     '''
-    title = 'Welcome to the blog app'
-    return render_template("index.html", title=title)
+    form = PostForm()
 
-@main.route('/theblog',methods = ['GET', 'POST'])
-@login_required
-def theblog():
+    if form.validate_on_submit():
+        new_post = Post(actual_post=form.post.data,category=form.category.data, user_id=current_user.id)
+        new_post.save_post()
+        flash('Post has been created successfully')
+        return redirect(url_for('.index'))
+    post = Post.query.all()
 
-    blog_form = BlogFormI()
+    General = Post.query.filter_by(category='General')
+    Cars = Post.query.filter_by(category='Cars')
+    Technology = Post.query.filter_by(category='Technology')
+    return render_template('index.html',title = 'new_post',form=form, General=General, post=post, Cars=Cars, Technology=Technology)
+
+@main.route('/post/comments/new/<int:id>', methods = ['GET','POST'])
+# @login_required
+def new_comment(id):
+    '''
+    Function for creating new comments on the new_comments.html template
+    '''
+    form = CommentsForm()
+    post = Comment.query.filter_by(post_id=id).all()
+    if form.validate_on_submit():
+
+        # Updated review instance
+        new_comment = Comment(post_id=id, comments=form.comments.data)
+
+        # save review method
+        db.session.add(new_comment)
+        db.session.commit()
+        return redirect(url_for('.new_comment',id=new_comment.post_id))
+    title = 'comment'
+    return render_template('new_comment.html',title = title, comment_form=form, post=post)
 
 
-    if blog_form.validate_on_submit():
-        title = blog_form.title.data
-        pitch = blog_form.pitch.data
-
-        new_pitch = BLOG(m_blog_title = title, m_blog_content=pitch, m_blog_posted_on = datetime.now() , user = current_user)
-        new_pitch.save_blog()
-
-        #mail_message("Thank you for sending your first post","email/welcome_user",user.email,user=user)
-        return redirect(url_for('main.theblog'))
 
 
-    all_pitches = BLOG.get_all_blogs()
 
-    return render_template("theblog.html", pitch_form = blog_form, pitches = all_pitches)
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
 
-@main.route('/allblog')
-def allblog():
-
-
-    random = requests.get('http://quotes.stormconsultancy.co.uk/random.json').json()
-    all_pitches = BLOG.get_all_blogs()
-    return render_template("allblog.html",pitches = all_pitches,random = random)
-
-@main.route('/comments/<int:id>',methods = ['GET','POST'])
-def pitch(id):
-
-    my_pitch = BLOG.query.get(id)
-    comment_form = CommentForm()
-
-    if id is None:
+    if user is None:
         abort(404)
 
-    if comment_form.validate_on_submit():
-        comment_data = comment_form.comment.data
-        new_comment = Comment(c_content = comment_data, c_blog_id = id, c_com_posted_on = datetime.now())
-        new_comment.save_comment()
+    return render_template("profile/profile.html", user = user)
 
-        return redirect(url_for('main.pitch',id=id))
 
-    all_comments = Comment.get_comments(id)
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
 
-    title = 'Comment Section'
-    return render_template('comment.html',pitch = my_pitch, comment_form = comment_form, comments = all_comments, title = title)
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update.html',form =form)
+
+
+
+
+@main.route('/delete/<int:id>', methods=['POST','GET'])
+def delete(id):
+    try:
+        if current_user.is_authenticated:
+            posts = Post.query.all()
+            post_form = PostForm()
+            fetched_comment = Post.query.filter_by(id=id).first()
+            db.session.delete(fetched_comment)
+            db.session.commit()
+            posts = Post.query.all()
+            return redirect(url_for('main.index',posts=posts,form=post_form))
+
+        return 
+
+    except Exception as e:
+        return (str(e))
+
+
+@main.route('/deletecomment/<int:id>', methods=['POST','GET'])
+def delete_commen(id):
+    try:
+        if current_user.is_authenticated:
+            form = CommentsForm()
+            fetched_comment = Comment.query.filter_by(id=id).first()
+            db.session.delete(fetched_comment)
+            db.session.commit()
+            # post_id = Comment.query.filter_by()
+            return redirect(url_for('main.index'))
+
+    except Exception as e:
+        return (str(e))
+
