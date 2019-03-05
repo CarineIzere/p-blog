@@ -6,44 +6,49 @@
 {% block content %}
 
 <!-- Blog Category -->
-<div class="jumbotron" style="background-color:brown,">
-  <h3 style="color:rgb(15, 164, 214); text-align: center; ">
-    Write a Blog Post
-  </h3>
+<div
+  class="container "
+  style="background-color:rgb(224, 154, 154); border:20px solid rgb(15, 164, 214);"
+>
+  <div class="jumbotron" style="background-color:rgb(224, 154, 154);">
+    <h3 style="color:rgb(15, 164, 214); text-align: center; ">
+      MY BLOG POST
+    </h3>
+  </div>
   {{ wtf.quick_form(form) }}
-</div>
-{% for post in post %}
+  {% for post in post %}
 
-<div class="col-md-8 offset-md-2" style="margin-left:15%;" id="blog_page">
-  <div class="panel panel-default" style="background-color:rgb(15, 164, 214)">
-    <div class="table-container">
-      <table class="table table-filter">
-        <tbody>
-          <tr data-status="pagado">
-            <td>
-              <div class="media">
-                <div class="jumbotron">
-                  <div class="media-body">
-                    <span class="media-meta pull-right">{{
-                      post.timestamp
-                    }}</span>
-                    <h4 class="title">{{ post.actual_post }}...</h4>
-                    <a
-                      class="btn btn-success text-center"
-                      href="/post/comments/new/{{ post.id }}"
-                      >Add a Comment on this Post</a
-                    >
+  <div class="col-md-8 offset-md-2" style="margin-left:15%;" id="blog_page">
+    <div class="panel panel-default" style="background-color:rgb(15, 164, 214)">
+      <div class="table-container">
+        <table class="table table-filter">
+          <tbody>
+            <tr data-status="pagado">
+              <td>
+                <div class="media">
+                  <div class="jumbotron">
+                    <div class="media-body">
+                      <span class="media-meta pull-right">{{
+                        post.timestamp
+                      }}</span>
+                      <h4 class="title">{{ post.actual_post }}...</h4>
+                      <a
+                        class="btn btn-success text-center"
+                        href="/post/comments/new/{{ post.id }}"
+                        >Add a Comment on this Post</a
+                      >
 
-                    <a class="btn btn-danger" href="/delete/{{ post.id }}"
-                      >Delete Comment</a
-                    >
+                      <a class="btn btn-danger" href="/delete/{{ post.id }}"
+                        >Delete Comment</a
+                      >
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
