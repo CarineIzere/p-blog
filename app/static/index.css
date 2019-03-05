@@ -1,8 +1,11 @@
-.btn btn-success text-center{
-    background-color: blueviolet;
-    text-emphasis-color: red;
+.btn btn-success text-center {
+  background-color: blueviolet;
+  text-emphasis-color: red;
 }
 
 #blog_page {
-    background-color: blue;
+  background-color: blue;
+}
+body {
+  background-image: url("https://findingpoliticalsanity.com/wp-content/uploads/2017/02/keep-calm-and-welcome-to-my-blog.png");
 }
