@@ -6,5 +6,6 @@
 #blog_page {
   background-color: blue;
 }
-body {
+* {
+  background-color: tomato;
 }
