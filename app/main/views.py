@@ -113,7 +113,7 @@ def delete_commen(id):
     except Exception as e:
         return (str(e))
 
-main.route('/subscribe/', methods=['GET', 'POST'])
+@main.route('/subscribe/', methods=['GET', 'POST'])
 @login_required
 def sub():
     """
