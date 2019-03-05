@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, abort, flash
 from . import main
 from flask_login import login_required, current_user
 from .. import db
-from ..models import User,Post,Comment
+from ..models import User,Post,Comment,Subscription
 from app import login_manager
 from .forms import PostForm,CommentsForm
 @main.route('/',methods=['GET','POST'])

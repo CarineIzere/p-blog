@@ -82,4 +82,11 @@ class Comment(db.Model):
         '''
         db.session.delete(self)
         db.session.commit()
+        
+class Subscription(UserMixin, db.Model):
+    __tablename__ = 'subs'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True, index=True, nullable=False)
 
+    def __repr__(self):
+        return f'{self.email}'
