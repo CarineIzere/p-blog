@@ -51,7 +51,7 @@ Here is a live working link """
     - Run ./start.py
 
     Incase you need to access / improve the application please follow the below steps
-    1.  Use this command $ git clone <https://github.com/CarineIzere/pers-blog>
+    1.  Use this command $ git clone <https://github.com/CarineIzere/p-blog>
         This will clone the projects repository into a local folder on your device.
     2.  Open the files with an editor( preferably Atom. )
     3.  Study the code. learn from it. Improve on it.
