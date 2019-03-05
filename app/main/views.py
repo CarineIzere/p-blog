@@ -72,7 +72,8 @@ def update_profile(uname):
 
         db.session.add(user)
         db.session.commit()
-
+        subs = Subscription.query.all()
+        print(subs)
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
@@ -112,3 +113,17 @@ def delete_commen(id):
     except Exception as e:
         return (str(e))
 
+main.route('/subscribe/', methods=['GET', 'POST'])
+@login_required
+def sub():
+    """
+    Function that enables one to subscribe to the blog
+    """
+    form = SubscribeForm()
+    if form.validate_on_submit():
+        subscription = Subscription(email = form.email.data)
+        db.session.add(subscription)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+
+    return render_template('sub.html',form = form)
